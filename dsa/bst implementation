@@ -1,0 +1,45 @@
+//BST IMPLEMENTATION
+#include<iostream>
+using namespace std;
+class Node{
+    public:
+    int data;
+    Node*left;
+    Node*right;
+    Node(int x)
+    {
+        data=x;
+        left=nullptr;
+        right=nullptr;
+    }
+};
+Node *createBST(Node *root,int val)
+{
+    if(root==nullptr)
+      return new Node(val);
+     if(root->data>=val)
+        root->left=createBST( root->left,val);
+        else
+         root->right=createBST(root->right,val);
+    return root;
+}
+void inorder(Node *root)
+{
+    if(root->left)
+    inorder(root->left);
+    cout<<root->data<<" ";
+    if(root->right)
+    inorder(root->right);
+}
+int main()
+{
+    Node *root=nullptr;
+    root=createBST(root,50);
+    createBST(root,30);
+    createBST(root,50);
+    createBST(root,80);
+    createBST(root,90);
+    createBST(root,75);
+     inorder(root);
+     return 0;
+}
