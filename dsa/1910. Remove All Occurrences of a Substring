@@ -1,0 +1,14 @@
+//Problem link ->     https://leetcode.com/submissions/detail/1538875567/
+
+string removeOccurrences(string s, string part) {
+       string str;
+       int n=part.size();
+       for(auto x:s)
+       {
+        str+=x;
+        if(str.size()>=n&&str.substr(str.size()-n)==part)
+            str.erase(str.size()-n);
+       }
+       return str;
+    }
+};
