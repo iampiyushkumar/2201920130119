@@ -1,0 +1,50 @@
+int prims(unordered_map<int,vector<pair<int,int>>>&adj,int n)
+{
+   
+    vector<int>visited(n,0);
+    vector<int>weight(n,INT_MAX);
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+    weight[0]=0;
+    pq.push({0,0});
+    while(!pq.empty()){
+        int w=pq.top().first;
+        int node=pq.top().second;
+        pq.pop();
+        if(visited[node]==1) continue;
+        visited[node]=1;
+        for(auto x:adj[node])
+        {  
+            int adjdist=x.first;
+            int adjnode=x.second;
+     
+        if(visited[adjnode]==0&&adjdist<weight[adjnode])
+        {
+            weight[adjnode]=adjdist;
+            pq.push({adjdist,adjnode});
+        }
+        }
+    }
+    int cost=0;
+    for(auto x:weight)
+      cost+=x;
+    return cost;
+}
+    int minCostConnectPoints(vector<vector<int>>& points) {
+        int n=points.size();
+        unordered_map<int,vector<pair<int,int>>>adj;
+        for(int i=0;i<points.size();i++)
+        {
+            for(int j=i+1;j<points.size();j++)
+            {
+                int x1=points[i][0];
+                int y1=points[i][1];
+                int x2=points[j][0];
+                int y2=points[j][1];
+                int dist=abs(x2-x1)+abs(y1-y2);
+                adj[i].push_back({dist,j});
+                adj[j].push_back({dist,i});
+            }
+        }
+       return prims(adj,n);
+    }
+};
